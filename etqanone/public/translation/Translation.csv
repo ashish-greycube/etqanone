@@ -1,0 +1,260 @@
+Language,Source Text,Translated Text
+ar,(Jan (Qty,كمية يناير
+ar,Account Head,الحساب
+ar,Accounts,أدارة الحسابات
+ar,Accounts Manager,مدير الحسابات
+ar,Accounts Payable,حسابات الموردين
+ar,Accounts Receivable,حسابات العملاء
+ar,Accounts Receivable Summary,ملخص حسابات القبض
+ar,Accounts User,مستخدم الحسابات
+ar,Add Child,اضافة حساب
+ar,Address And Contacts,العناوين وجهات الاتصال
+ar,Advance amount,المبلغ المقدم
+ar,ADVANCE PAYMENTS,الدفعات المقدمة
+ar,Agriculture Manager,مدير الزراعة
+ar,Agriculture User,مستخدم زراعة
+ar,Allow Zero Valuation Rate,السماح بمعدل تقييم صفر
+ar,Amount,المبلغ
+ar,Analytics,محلل
+ar,Asset Depreciation Ledger,دفتر استاذ اهلاك الأصول
+ar,Assigned To Me,أسندت لي
+ar,Auditor,مراجع
+ar,Available Batch Qty at Warehouse,الكمية المتاحة من الدفعة في المخزن
+ar,Available Qty at Warehouse,الكمية المتاحة في المخزن
+ar,Available Stock for Packing Items,المخزون المتاح للتعبئة
+ar,Balance,رصيد
+ar,Balance Sheet,قائمة المركز المالي
+ar,Bank Entry,قيد بنكي
+ar,Batch,دفعة
+ar,Batch Item Expiry Status,حالة تاريخ صلاحية الصنف علي مستوي الدفعة
+ar,Batch-Wise Balance History,رصيد المخزون علي مستوي الدفعات
+ar,Bill of Materials,جدول المواد
+ar,Blogger,مدون
+ar,BOM Browser,تصفح جداول المواد
+ar,BOM Search,البحث في جداول المواد
+ar,BOM Stock Report,تقرير مخزون جدول المواد
+ar,BOM Update Tool,اداة تحديث جداول المواد
+ar,Budget Variance Report,تقرير فروقات الموازنة
+ar,Buying,أدارة المشتريات
+ar,Chargeable,خصوم
+ar,Company TRN,الرقم الضريبي للشركة
+ar,Contact,الأسماء
+ar,Cr,دائن
+ar,Credit,دائن
+ar,Credit Note Issued,تسوية
+ar,Ctrl+enter to save,Ctrl+enter للحفظ
+ar,Customer,العميل
+ar,Customer Acquisition and Loyalty,ولاء واكتساب العملاء
+ar,Customer Credit Balance,تقرير الحد الائتماني وارصدة العملاء
+ar,Customer Group,مجموعة العميل
+ar,Customer Ledger Summary,ملخص حساب العميل
+ar,Customer Name,العميل
+ar,Customer PO Details,تفاصيل امر شراء العميل
+ar,Debit To,مدين الي :
+ar,Default Buying Cost Center,مركز التكلفة الافتراضي
+ar,Default Expense Account,حساب تكلفة البضاعة المباعة
+ar,Default Purchase Unit of Measure,وحدة القياس الافتراضية للمشتريات
+ar,Default Selling Cost Center,مركز التكلفة الافتراضي
+ar,Default Warehouse,المستودع الافتراضي
+ar,Delivered Items To Be Billed,سندات التسليم الغير مفوترة
+ar,Depreciation,اهلاك
+ar,Depreciation Entry,قيد اهلاك
+ar,Designation,المسمي الوظيفي
+ar,DOCTYPE,نوع الوثيقة
+ar,Dr,مدين
+ar,DUE AMOUNT,مبلغ مستحق
+ar,Due Date,تاريخ الاستحقاق
+ar,Employee,موظف
+ar,Employee Loan,سلفة موظف
+ar,Employee Loan Application,طلب سلفة موظف
+ar,Employee Loan Management,ادارة سلف الموظفين
+ar,Employment Type,نوع التوظيف
+ar,Entry Type,نوع القيد
+ar,Equity,حقوق ملكية
+ar,Excise Entry,قيد ضريبة
+ar,Exit,تفاصيل الاستقالة
+ar,Expense,مصروف
+ar,Expense Approver,معتمد المصاريف
+ar,Expense Claim,مطالبة مصروف
+ar,Expense Claim Type,نوع مطالبة المصروف
+ar,Expense Claims,مطالبة المصروف
+ar,Expenses Entry,ادخال المصاريف
+ar,Feedback,معلومات اخري
+ar,Fleet Management,ادارة الاسطول
+ar,Fleet Manager,مدير الاسطول
+ar,Etqan Soft,إتقان سوفت
+ar,Etqan,إتقان 1
+ar,Fuel UOM,وحدة قياس الوقود
+ar,Get Advances Received,اظهار الدفعات المقدمة
+ar,Guest,ضيف
+ar,Half-Yearly,نصف سنوي
+ar,Healthcare Administrator,مدير الرعاية الطبية
+ar,Held On,تاريخ قبول الاستقالة
+ar,Home Page LInk,رابط الصفحة الرئيسية
+ar,HR Manager,مدير الموارد البشرية
+ar,HR User,مستخدم موارد بشرية
+ar,Human Resources,أدارة الموارد البشرية
+ar,Income,الإيرادات
+ar,Income Account,حساب الدخل
+ar,Insert Above,ادراج بالأعلي
+ar,Is Advance,هل هو دفعة مقدمة
+ar,Is Group,هل هو حساب رئيسي
+ar,Is Opening,هل هو افتتاحي
+ar,Is Opening Entry,هل هو  قيد افتتاحي
+ar,Is Purchase Item,هل هو صنف مشتريات
+ar,Is Sales Item,هل هو صنف مبيعات
+ar,Issued Items Against Production Order,الاصناف الصادرة مقابل امر انتاج
+ar,Item,صنف
+ar,Item Attribute,خصائص الصنف
+ar,Item Manager,مدير الاصناف
+ar,Item Variant Settings,اعدادات متغيرات الصنف
+ar,Item-wise Purchase Register,تقرير المشتريات علي مستوي الصنف
+ar,Itemwise Recommended Reorder Level,اعادة الطلب علي مستي الصنف
+ar,Job Applicant,طلب وظيفة
+ar,Laboratory User,مستخدم معمل
+ar,LabTest Approver,معتمد اختبارات المعمل
+ar,Landed Cost Voucher,معالج التكلفة النهائية
+ar,Last Purchase Rate,اخر سعر شراء
+ar,Leave Approver,معتمد الاجازات
+ar,Letter Head,رأس الرسالة
+ar,Loan Type,نوع السلفة
+ar,Maintenance Manager,مدير الصيانة
+ar,Maintenance User,مستخدم الصيانة
+ar,Make,إجراء
+ar,Manufacturing,أدارة التصنيع
+ar,Manufacturing Manager,مدير التصنيع
+ar,Manufacturing User,مستخدم التصنيع
+ar,Match Payments with Invoices,تسوية دفعات العملاء مع الفواتير
+ar,Materials Required (Exploded),الأصناف المطلوبة
+ar,More,المزيد
+ar,More,المزيد
+ar,Net Profit/Loss,نهائي
+ar,New Account Name,اسم الحساب الجديد
+ar,New Company,شركة جديدة
+ar,Newsletter Manager,مدير الاخبار
+ar,No Tags,لاتوجد وسوم
+ar,Non Profit Manager,مدير منظمة
+ar,Non Profit Member,عضو منظمة
+ar,Note,اعلان داخلي
+ar,Offer Letter,عرض وظيفي
+ar,Open,مفتوح
+ar,Opening Entry,قيد افتتاحي
+ar,Operation,العمليات الانتاجية
+ar,Ordered Items To Be Billed,أوامر البيع الغير مفوترة
+ar,Ordered Items To Be Delivered,أوامر البيع الغير مسلمة
+ar,Outstanding Amount,المبلغ المعلق
+ar,Packing Slip,قسيمة التعبئة
+ar,Party Type,نوع الحساب
+ar,Pay To / Recd From,دفع الي / استلام من
+ar,Payment Amount,مبلغ الدفع
+en,Payment Entry,Payment Voucher
+ar,Payment Entry,المدفوعات والمقبوضات
+ar,Payment Gateway Account,حساب بوابة الدفع
+ar,Payment Gateway Account,حساب بوابة الدفع
+ar,Payroll Entry,معالجة الرواتب
+ar,Pending,معلقة
+ar,Pending SO Items For Purchase Request,تقرير تفصيلي أوامر الشراء
+ar,Period Closing Voucher,قيد اغلاق الفترة
+ar,Phone Number,رقم الهاتف
+ar,POS,نقاط البيع
+ar,Posting Date,تاريخ الادخال
+ar,Price List,سعر قائمة الشراء
+ar,Price List Rate,سعر قائمة الأسعار
+ar,Print Heading,عنوان الطباعة
+ar,Process Payroll,معالجة الرواتب
+ar,Production Order,أمر انتاج
+ar,Production Orders in Progress,اوامر الانتاج قيد العمل
+ar,Production Planning Tool,أداة تخطيط الانتاج
+ar,Project wise Stock Tracking,تتبع المشاريع علي مستوي المخزون
+ar,Projects,أدارة المشاريع
+ar,Projects Manager,مدير المشاريع
+ar,Projects User,مستخدم مشاريع
+ar,Purchase Manager,مدير المشتريات
+ar,Purchase Master Manager,المدير العام للمشتريات
+ar,Purchase Order Items To Be Billed,أوامر الشراء الغير مفوترة
+ar,Purchase Order Items To Be Received,أوامر الشراء الغير مستلمة
+ar,Purchase Register,تقرير المشتريات
+ar,Purchase Taxes and Charges Template,قالب الضرائب علي المشتريات
+ar,Purchase User,مستخدم المشتريات
+ar,Qty as per Stock UOM,الكمية بناء علي وحدة قياس المنتج
+ar,Qualified,مؤهل للشراء
+ar,Rate,السعر
+ar,Receive,استلام
+ar,Received Items To Be Billed,الأصناف المستلمة الغير مفوترة
+ar,Reconcile payments and bank transactions,تسوية الدفعات مع العمليات البنكية
+ar,Recruitment,التوظيف
+ar,Reference Date,تاريخ المرجع
+ar,Reference Type,نوع المرجع
+ar,Remarks,التعليقات
+ar,Report Manager,مدير التقارير
+ar,Reports,التقارير
+ar,Request for Quotation,طلب عرض سعر
+ar,Requested Items To Be Ordered,تقرير متابعة طلبات المواد
+ar,Requested Items To Be Transferred,الأصناف المطلوبة للتحويل
+ar,Restaurant Manager,مدير مطعم
+ar,Retail Operations,نقاط البيع والتوزيع
+ar,Return,مرتجع
+ar,Round Off,خصم
+ar,Rounded Total,الاجمالي المقرب
+ar,Safety Stock,كمية المخزون لوضع الامان
+ar,Salary Register,تقرير الرواتب الشهرية
+ar,Sales Funnel,دورة المبيعات
+ar,Sales Manager,مدير المبيعات
+ar,Sales Master Manager,المدير العام للمبيعات
+ar,Sales Order,امر بيع
+ar,Sales Partner,مندوب مبيعات
+ar,Sales Person,شريك مبيعات
+ar,Sales Person-wise Transaction Summary,ملخص المبيعات علي مستوي مندوب المبيعات
+ar,Sales Register,تقرير المبيعات
+ar,Sales Taxes and Charges Template,قالب الضرائب علي المبيعات
+ar,Sales User,مستخدم المبيعات
+ar,Salutation,البادئة
+ar,School/University,المدرسة / الجامعة
+ar,Select Supplier Address,حدد عنوان المورد
+ar,Selling,أدارة المبيعات
+ar,Serial No,الرقم المتسلسل
+ar,Serial No Service Contract Expiry,تاريخ نهاية عقد الصيانة بناء علي الرقم المتسلسل
+ar,Serial No Status,حالة الرقم المتسلسل
+ar,Serial No Warranty Expiry,نهاية ضمان الرقم المتسلسل
+ar,Show tags,إظهار الوسوم
+ar,Stock,أدارة المستودعات
+ar,Stock Ageing,تقرير عمر المخزون
+ar,Stock Manager,مدير المستودعات
+ar,Stock Qty,كمية المخزون
+ar,Stock Received But Not Billed,المخزون المستلم الغير مفوتر
+ar,Stock Summary,ملخص المخزون
+ar,Stock UOM,وحدة قياس المنتج
+ar,Stock User,مستخدم المستودعات
+ar,Submitted,معتمدة
+ar,Supplier Invoice Date,تاريخ فاتورة المورد
+ar,Supplier Invoice Details,تفاصيل فاتورة المورد
+ar,Supplier Ledger Summary,ملخص حساب المورد
+ar,Supplier Name in Arabic,اسم المورد باللغة العربية
+ar,Supplier Quotation,عرض سعر مورد
+ar,System Manager,مدير النظام
+ar,Tags,الوسوم
+ar,Tax Id,الرقم الضريبي للطرف
+ar,Tax ID No,الرقم الضريبي
+ar,The first Leave Approver in the list will be set as the default Leave Approver,اول شخص في القائمة سيكون هو الموافق علي الاجازة الافتراضي
+ar,Time Sheet List,قائمة سجل الحضور
+ar,To Bill,العمليات للفوترة
+ar,To Deliver and Bill,للتسليم والفوترة
+ar,To Receive,غير مستلمة
+ar,To Receive and Bill,للاستلام والفوترة
+ar,Tools,ألادوات
+ar,Top 5 Items,اكثر الاصناف مبيعات
+ar,Top 5 Outstanding Customer,اعلي العملاء مديونية
+ar,TOTAL COLLECTION,مجموع التحصيل
+ar,TOTAL SALES,إجمالي المبيعات
+ar,Total Sales Amount,إجمالي حجم المبيعات
+ar,Trial Balance for Party,ميزان المراجعة للعملاء والموردين
+ar,Unit of Measure (UOM),وحدات القياس
+ar,UOM Conversion Factor,وحدة قياس معامل التحويل
+ar,Update Bank Transaction Dates,تحديث تاريخ العمليات البنكية
+ar,User Remark,التعليقات
+ar,Valuation Method,طريقة التقييم
+ar,Valuation Rate,سعر التقييم
+ar,VAT Details,تفاصيل الضريبة
+ar,Vehicle Log,سجل السيارة
+ar,WRITE OFF,خصم الكسور
+ar,Write Off Entry,قيد اطفاء

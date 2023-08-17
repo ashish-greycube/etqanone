@@ -1,0 +1,105 @@
+{
+ "creation": "2019-05-27 14:12:34.625911",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "expense_account",
+  "account_type",
+  "cost_center",
+  "amount",
+  "expense_remarks",
+  "column_break_4",
+  "apply_vat",
+  "supplier",
+  "supplier_name",
+  "supplier_tax_id"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "expense_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Expense Account",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "expense_remarks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 2,
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "account_type",
+   "fieldtype": "Data",
+   "label": "Account Type",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "apply_vat",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "VAT"
+  },
+  {
+   "columns": 2,
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fetch_from": "supplier.supplier_name",
+   "fetch_if_empty": 1,
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier Name"
+  },
+  {
+   "fetch_from": "supplier.tax_id",
+   "fetch_if_empty": 1,
+   "fieldname": "supplier_tax_id",
+   "fieldtype": "Data",
+   "label": "Supplier Tax ID"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-11-13 16:56:43.819422",
+ "modified_by": "Administrator",
+ "module": "Etqanone",
+ "name": "Expenses Entry Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}

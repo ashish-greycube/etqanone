@@ -1,0 +1,31 @@
+{% if summary %}
+<div class="tax-break-up" style="overflow-x: auto;">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+               
+                <th>121-Above</th>
+                <th>91-120</th>
+                <th>61-90</th>
+                <th>31-60</th>
+                <th>0-30</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in summary or [] %}
+            <tr>
+                <td>{{ frappe.format(d.range5, "Currency") }}</td>
+                <td>{{ frappe.format(d.range4, "Currency") }}</td>
+                <td>{{ frappe.format(d.range3, "Currency") }}</td>
+                <td>{{ frappe.format(d.range2, "Currency") }}</td>
+                <td>{{ frappe.format(d.range1, "Currency") }}</td>
+                <td>{{ frappe.format(d.outstanding, "Currency") }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h4>Accounts Receivable Summary does not exist.</h4>
+{% endif %}

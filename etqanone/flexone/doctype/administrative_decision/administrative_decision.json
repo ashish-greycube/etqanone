@@ -1,0 +1,247 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2019-06-19 15:14:36.169597",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "trans_type",
+  "column_break_3",
+  "posting_date",
+  "document_barcode",
+  "section_break_7",
+  "employee",
+  "employee_name",
+  "department",
+  "to_department",
+  "issued_number",
+  "coming_from",
+  "sent_to",
+  "coming_number",
+  "reply_required",
+  "replied_document",
+  "replied_administrative_decision",
+  "column_break_19",
+  "admin_document_type",
+  "priority",
+  "received_date",
+  "deadline",
+  "section_break_24",
+  "decision_title",
+  "column_break_26",
+  "state",
+  "section_break_28",
+  "decision_content",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "AD-IN-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "AD-IN-\nAD-OUT-\nAD-INSIDE-",
+   "read_only": 1
+  },
+  {
+   "default": "Received Document",
+   "fieldname": "trans_type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Received Document\nSent Document\nInside Document",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Creation Date"
+  },
+  {
+   "fieldname": "document_barcode",
+   "fieldtype": "Barcode",
+   "ignore_xss_filter": 1,
+   "label": "Document Barcode",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "label": "Employee Name"
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Inside Document' ",
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Read Only",
+   "label": "Department"
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Inside Document'",
+   "fieldname": "to_department",
+   "fieldtype": "Link",
+   "label": "To Department",
+   "options": "Department"
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Sent Document'",
+   "fieldname": "issued_number",
+   "fieldtype": "Data",
+   "label": "Issued Number",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Received Document'",
+   "fieldname": "coming_from",
+   "fieldtype": "Data",
+   "label": "Coming From"
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Sent Document'",
+   "fieldname": "sent_to",
+   "fieldtype": "Data",
+   "label": "Sent To"
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Received Document'",
+   "fieldname": "coming_number",
+   "fieldtype": "Data",
+   "label": "Coming Number"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.trans_type=='Received Document'",
+   "fieldname": "reply_required",
+   "fieldtype": "Check",
+   "label": "Reply Required"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.trans_type=='Sent Document'",
+   "fieldname": "replied_document",
+   "fieldtype": "Check",
+   "label": "Replied Document"
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Sent Document' && doc.replied_document == 1",
+   "fieldname": "replied_administrative_decision",
+   "fieldtype": "Link",
+   "label": "Administrative Decision",
+   "options": "Administrative Decision"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "admin_document_type",
+   "fieldtype": "Link",
+   "label": "Document Type",
+   "options": "Admin Document Type"
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Priority",
+   "options": "\nHigh\nMedium\nLow",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "received_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Received Date",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.trans_type=='Received Document' && doc.reply_required == 1",
+   "fieldname": "deadline",
+   "fieldtype": "Date",
+   "label": "Deadline"
+  },
+  {
+   "fieldname": "section_break_24",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "decision_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Decision Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "state",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "State",
+   "options": "Draft\nActive\nCanceled\nDone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_28",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "decision_content",
+   "fieldtype": "Text Editor",
+   "label": "Decision Content"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Administrative Decision",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-07-07 16:59:27.548856",
+ "modified_by": "Administrator",
+ "module": "etqanone",
+ "name": "Administrative Decision",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "decision_title",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "decision_title",
+ "track_changes": 1
+}

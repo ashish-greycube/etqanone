@@ -1,6 +1,6 @@
 ## Etqanone
 
-Customization for Etqansoft
+Etqanone for v13
 
 #### License
 
