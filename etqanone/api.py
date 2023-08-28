@@ -8,14 +8,14 @@ from frappe import _
 from frappe.sessions import Session
 
 
-@frappe.whitelist()
-def import_arabic_translation():
-	configure_app()
-	frappe.db.sql('delete from `tabTranslation`')
-	# from frappe.core.doctype.data_import.data_import import import_file_by_path
-	from frappe.core.doctype.data_import.data_import import import_file
-	import_file(doctype='Translation', file_path=frappe.utils.get_bench_path()+'/apps/etqanone/etqanone/public/translation/Translation.csv', import_type="Insert", submit_after_import=False, console=False)
-	# import_file(path=frappe.utils.get_bench_path()+'/apps/etqanone/etqanone/public/translation/Translation.csv',ignore_links=False, overwrite=True,submit=False, pre_process=None, no_email=True)
+# @frappe.whitelist()
+# def import_arabic_translation():
+# 	configure_app()
+# 	frappe.db.sql('delete from `tabTranslation`')
+# 	# from frappe.core.doctype.data_import.data_import import import_file_by_path
+# 	from frappe.core.doctype.data_import.data_import import import_file
+# 	import_file(doctype='Translation', file_path=frappe.utils.get_bench_path()+'/apps/etqanone/etqanone/public/translation/Translation.csv', import_type="Insert", submit_after_import=False, console=False)
+# 	# import_file(path=frappe.utils.get_bench_path()+'/apps/etqanone/etqanone/public/translation/Translation.csv',ignore_links=False, overwrite=True,submit=False, pre_process=None, no_email=True)
 
 
 # def on_session_creation(login_manager):
@@ -110,3 +110,31 @@ def configure_systemsettings():
 	doc.disable_standard_email_footer = int(1)
 	doc.hide_footer_in_auto_email_reports = int(1)
 	doc.save()
+
+
+
+
+def on_submit_sales_invoice(doc, method):
+    if doc.meta.get_field("accounts_receivable_summary_cf"):
+        template = "etqanone/etqanone/print_format/accounts_receivable_summary.html"
+        from erpnext.accounts.report.accounts_receivable_summary.accounts_receivable_summary import (
+            execute,
+        )
+
+        filters = dict(
+            ageing_based_on="Posting Date",
+            company=doc.company,
+            customer=doc.customer,
+            report_date=doc.posting_date,
+            range1=30,
+            range2=60,
+            range3=90,
+            range4=120,
+        )
+
+        _, summary = execute(filters)
+        summary = [summary[0]] if summary else []
+        accounts_receivable_summary_cf = frappe.render_template(
+            template, dict(summary=summary, doc=doc)
+        )
+        doc.db_set("accounts_receivable_summary_cf", accounts_receivable_summary_cf)

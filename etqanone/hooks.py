@@ -85,7 +85,7 @@ after_migrate = "etqanone.migrations.after_migrations"
 # Hook on document methods and events
 
 doc_events = {
-    "Sales Invoice": {"on_submit": "etqanone.on_submit_sales_invoice"}
+    "Sales Invoice": {"on_submit": "etqanone.api.on_submit_sales_invoice"}
     # 	"*": {
     # 		"on_update": "method",
     # 		"on_cancel": "method",
