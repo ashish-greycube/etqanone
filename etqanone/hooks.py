@@ -40,7 +40,7 @@ website_context = {
 
 # application home page (will override Website Settings)
 # home_page = "login"
-after_install = "etqanone.api.import_arabic_translation"
+# after_install = "etqanone.api.import_arabic_translation"
 # website user home page (by Role)
 # role_home_page = {
 # 	"Role": "home_page"
