@@ -1,0 +1,98 @@
+{
+ "cards_label": "Etqan One",
+ "category": "Modules",
+ "charts": [],
+ "creation": "2023-08-29 17:04:55.897352",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "non-profit",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Etqan One",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Advance Tools",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Electronic Archive",
+   "link_to": "Administrative Decision",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Admin Document Type",
+   "link_to": "Admin Document Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Expense Entry",
+   "link_to": "Expense Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Company Document",
+   "link_to": "Company Document Eqo",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Document Type",
+   "link_to": "Document Type Eqo",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "General Ledger Middle East",
+   "link_to": "General Ledger Middle East",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-08-29 17:04:55.897352",
+ "modified_by": "Administrator",
+ "module": "Etqanone",
+ "name": "Etqan One",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 1,
+ "shortcuts": []
+}
