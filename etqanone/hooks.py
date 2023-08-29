@@ -35,7 +35,7 @@ app_license = "MIT"
 # ----------
 website_context = {
     "favicon": "/assets/etqanone/images/icon.png",
-    "splash_image": "/assets/etqanone/images/logo.jpg",
+    "splash_image": "/assets/etqanone/images/splash.png",
 }
 
 # application home page (will override Website Settings)
