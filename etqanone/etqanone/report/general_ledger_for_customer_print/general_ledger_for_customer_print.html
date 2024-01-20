@@ -1,0 +1,110 @@
+
+{%
+	var letterhead = filters.letter_head || (frappe.get_doc(":Company", filters.company) && frappe.get_doc(":Company", filters.company).default_letter_head) || frappe.defaults.get_default("letter_head");
+	var report_columns = report.get_columns_for_print();
+%}
+
+<div style="margin-bottom: 7px;" class="text-center">
+	{%= frappe.boot.letter_heads[letterhead].header %}
+</div>
+<h2 class="text-center">{%= __("Statement of Customer Ledger") %}</h2>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+            <td><b>{%= __("Type") %}</b></td>
+            <td>{%= __("Customer Statement") %}</td>
+
+            <td><b>{%= __("Customer") %}</b></td>
+            <td>	{% if (filters.party_name) { %}
+                {%= filters.party_name %}
+            {% } else if (filters.party && filters.party.length) { %}
+                {%= filters.party %}
+            {% } else if (filters.account) { %}
+                {%= filters.account %}
+            {% } %}</td>
+        </tr>
+
+        <tr>
+            <td><b>{%= __("From Date") %}</b></td>
+            <td>{%= frappe.datetime.str_to_user(filters.from_date) %}</td>
+
+            <td><b>{%= __("Customer Code") %}</b></td>
+            <td>{%= filters._reference_cf %}</td>
+        </tr>        
+        <tr>
+            <td><b>{%= __("To Date") %}</b></td>
+            <td>{%= frappe.datetime.str_to_user(filters.to_date) %}</td>
+            <td><b>{%= __("Tax ID") %}</b></td>
+            <td>{%= filters.tax_id %}</td>
+        </tr>         
+        </tbody>
+    </table>
+
+
+<hr>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th style="width: 12%">{%= __("Date") %}</th>
+            <th style="width: 15%">{%= __("Voucher Type") %}</th>
+			<th style="width: 15%">{%= __("Reference") %}</th>
+			<th style="width: 25%">{%= __("Remarks") %}</th>
+			<th style="width: 15%">{%= __("Debit") %}</th>
+			<th style="width: 15%">{%= __("Credit") %}</th>
+			<th style="width: 18%">{%= __("Balance (Dr - Cr)") %}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for(var i=0, l=data.length; i<l; i++) { %}
+			<tr>
+			{% if(data[i].posting_date) { %}
+				<td>{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
+				<td>{%= data[i].voucher_type %}
+				</td>
+				<td>{%= data[i].voucher_no %}
+				</td>                
+				{% var longest_word = cstr(data[i].remarks).split(" ").reduce((longest, word) => word.length > longest.length ? word : longest, ""); %}
+				<td {% if longest_word.length > 45 %} class="overflow-wrap-anywhere" {% endif %}>
+					<span>
+					{% if(!(filters.party || filters.account)) { %}
+						{%= data[i].party || data[i].account %}
+						<br>
+					{% } %}
+
+					<br>{%= __("Remarks") %}: {%= data[i].remarks %}
+					{% if(data[i].bill_no) { %}
+						<br>{%= __("Supplier Invoice No") %}: {%= data[i].bill_no %}
+					{% } %}
+					</span>
+				</td>
+				<td style="text-align: right">
+					{%= format_currency(data[i].debit, filters.presentation_currency) %}
+				</td>
+				<td style="text-align: right">
+					{%= format_currency(data[i].credit, filters.presentation_currency) %}
+				</td>
+			{% } else { %}
+				<td></td>
+				<td></td>
+				<td><b>{%= frappe.format(data[i].account, {fieldtype: "Link"}) || "&nbsp;" %}</b></td>
+				<td style="text-align: right">
+					{%= data[i].account && format_currency(data[i].debit, filters.presentation_currency) %}
+				</td>
+				<td style="text-align: right">
+					{%= data[i].account && format_currency(data[i].credit, filters.presentation_currency) %}
+				</td>
+			{% } %}
+				<td style="text-align: right">
+					{%= format_currency(data[i].balance, filters.presentation_currency) %}
+				</td>
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+<div id="footer-html">
+    <div class="letter-head-footer">
+       {%= frappe.boot.letter_heads[letterhead].footer %}
+    </div>
+</div>
+<p class="text-right text-muted">Printed On {%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</p>

@@ -6,7 +6,11 @@ from frappe.utils import cstr, flt, fmt_money, formatdate, getdate
 from frappe.utils import (cint, split_emails, get_request_site_address, cstr,get_files_path, get_backups_path, get_url, encode)
 from frappe import _
 from frappe.sessions import Session
-
+from frappe.utils import get_site_url,today
+from frappe.utils.pdf import get_pdf
+import json
+from six import string_types
+from frappe.www.printview import get_print_style
 
 # @frappe.whitelist()
 # def import_arabic_translation():
@@ -138,3 +142,30 @@ def on_submit_sales_invoice(doc, method):
             template, dict(summary=summary, doc=doc)
         )
         doc.db_set("accounts_receivable_summary_cf", accounts_receivable_summary_cf)
+
+
+@frappe.whitelist()
+def get_general_ledger_customer_statement_print(filters,data):
+	# get letter head
+	letter_head=frappe.db.get_value("Letter Head", {"is_default": 1}, ["content", "footer"], as_dict=True) or {}
+	# convert string to dict
+	if isinstance(filters, string_types):
+		filters = json.loads(filters)	
+	if isinstance(data, string_types):
+		data = json.loads(data)			
+	args={
+		'letter_head':letter_head,
+		'data':data,
+		'filters':filters
+	}
+	# to have css impact
+	base_template_path = "frappe/www/printview.html"
+	html = frappe.get_template("etqanone/etqanone/report/general_ledger_for_customer_print/general_ledger_customer_print_jinja.html").render(args)
+	html = frappe.render_template(
+				base_template_path,
+				{"body": html, "css": get_print_style(), "title":"Customer Statement"},
+			)	
+	docname=filters.get('party_name')+'-'+today()
+	frappe.local.response.filename = "{name}.pdf".format(name=docname.replace(" ", "-").replace("/", "-")     )
+	frappe.local.response.filecontent = get_pdf(html)
+	frappe.local.response.type = "pdf" 

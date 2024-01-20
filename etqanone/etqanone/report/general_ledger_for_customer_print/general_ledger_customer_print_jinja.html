@@ -1,0 +1,101 @@
+{% if data|length > 0 %}
+<div class="page-break">
+	<div id="header-html" class="visible-pdf">
+		{% if letter_head %}
+		<div class="letter-head text-center">{{ letter_head.content }}</div>
+		{% endif %}
+	</div>
+	<div id="footer-html" class="visible-pdf">
+		{% if letter_head.footer %}
+		<div class="letter-head-footer">
+			<hr style="border-width:0;color:black;background-color:black;padding-bottom:2px;">
+			{{ letter_head.footer }}
+		</div>
+		{% endif %}
+		<p class="text-center small page-number visible-pdf">
+			{{ _("Page {0} of {1}").format('<span class="page"></span>', '<span class="topage"></span>') }}
+		</p>			
+	</div>
+	<h4 class="text-center">{{ _("STATEMENT OF CUSTOMER LEDGER") }}</h4>
+
+	
+
+    <table class="table table-bordered table-condensed" style="font-size: 12px">
+        <tbody>
+            <tr>
+            <td><b>{{ _("Type") }}</b></td>
+            <td>{{ _("Customer Statement") }}</td>
+
+            <td><b>{{ _("Customer") }}</b></td>
+            <td>	{% if (filters.party_name) %}
+                {{ filters.party_name }}
+            {%  elif (filters.party and filters.party.length)  %}
+                {{ filters.party }}
+            {% elif (filters.account) %}
+                {{ filters.account }}
+            {% endif %}</td>
+        </tr>
+
+        <tr>
+            <td><b>{{ _("From Date") }}</b></td>
+            <td>{{ filters.from_date }}</td>
+
+            <td><b>{{ _("Customer Code") }}</b></td>
+            <td>{{ filters._reference_cf }}</td>
+        </tr>        
+        <tr>
+            <td><b>{{ _("To Date") }}</b></td>
+            <td>{{ filters.to_date }}</td>
+            <td><b>{{ _("Tax ID") }}</b></td>
+            <td>{{ filters.tax_id }}</td>
+        </tr>         
+        </tbody>
+    </table>
+
+
+    <div class="margin-top margin-bottom">
+        <table class="table table-bordered table-condensed"  style="font-size: 10px">
+			<thead>
+            <tr>
+				<th style="width: 2%">{{ _("#") }}</th>
+				<th style="width: 9%">{{ _("Date") }}</th>
+				<th style="width: 12%">{{ _("Voucher Type") }}</th>
+				<th style="width: 17%">{{ _("Reference") }}</th>
+				<th style="width: 25%;">{{ _("Remarks") }}</th>
+				<th style="width: 5%;">{{ _("Debit") }}</th>
+				<th style="width: 5;">{{ _("Credit") }}</th>
+				<th style="width: 5%;">{{ _("Balance (Dr - Cr)") }}</th>
+            </tr>
+			</thead>
+			<tbody></tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ frappe.format(item.posting_date, {'fieldtype': 'Date'}) }} </td>
+				{% if item.account=="'Opening'" %}
+				<td>{{ _("Opening") }}</td>
+				<td></td>
+				<td></td>
+				{% elif item.account=="'Total'" %}
+				<td>{{ _("Total") }}</td>
+				<td></td>
+				<td></td>				
+				{% elif item.account=="'Closing (Opening + Total)'" %}
+				<td>{{ _("Closing (O+T)") }}</td>
+				<td></td>
+				<td></td>				
+				{% else %}
+				<td>{{ item.voucher_type }}</td>
+                <td>{{ item.voucher_no }}</td>
+                <td>{{ item.remarks }}</td>
+				{% endif %}
+                <td>{{ frappe.utils.fmt_money(item.debit, 2) }} </td>
+                <td>{{ frappe.utils.fmt_money(item.credit, 2) }}</td>
+                <td>{{ frappe.utils.fmt_money(item.balance,2)}}</td>
+            </tr>
+            {% endfor %}
+		</tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
