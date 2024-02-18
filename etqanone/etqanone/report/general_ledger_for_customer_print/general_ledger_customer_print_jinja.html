@@ -41,13 +41,13 @@
             <td>{{ filters.from_date }}</td>
 
             <td><b>{{ _("Customer Code") }}</b></td>
-            <td>{{ filters._reference_cf }}</td>
+            <td>{{ filters._reference_cf or ''}}</td>
         </tr>        
         <tr>
             <td><b>{{ _("To Date") }}</b></td>
             <td>{{ filters.to_date }}</td>
             <td><b>{{ _("Tax ID") }}</b></td>
-            <td>{{ filters.tax_id }}</td>
+            <td>{{ filters.tax_id or ''}}</td>
         </tr>         
         </tbody>
     </table>
@@ -58,13 +58,13 @@
 			<thead>
             <tr>
 				<th style="width: 2%">{{ _("#") }}</th>
-				<th style="width: 9%">{{ _("Date") }}</th>
-				<th style="width: 12%">{{ _("Voucher Type") }}</th>
-				<th style="width: 17%">{{ _("Reference") }}</th>
-				<th style="width: 25%;">{{ _("Remarks") }}</th>
-				<th style="width: 5%;">{{ _("Debit") }}</th>
-				<th style="width: 5;">{{ _("Credit") }}</th>
-				<th style="width: 5%;">{{ _("Balance (Dr - Cr)") }}</th>
+				<th style="width: 10%">{{ _("Date") }}</th>
+				<th style="width: 13%">{{ _("Voucher Type") }}</th>
+				<th style="width: 18%">{{ _("Reference") }}</th>
+				<th style="width: 30%;">{{ _("Remarks") }}</th>
+				<th style="width: 9%;">{{ _("Debit") }}</th>
+				<th style="width: 9;">{{ _("Credit") }}</th>
+				<th style="width: 9%;">{{ _("Balance  (Dr-Cr)") }}</th>
             </tr>
 			</thead>
 			<tbody></tbody>

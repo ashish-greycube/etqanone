@@ -16,6 +16,7 @@ def execute(filters=None):
 	data =execute(filters)
 	for res in data:
 		for row in res:
+			print('row',row)
 			if row.get('gl_entry'):
 				if row.get('voucher_type')=='Sales Invoice':
 					row['remarks']=row.get('voucher_no')
