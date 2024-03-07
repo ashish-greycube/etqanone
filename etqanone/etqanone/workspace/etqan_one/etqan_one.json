@@ -94,9 +94,18 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "General Ledger Customer and Supplier",
+   "link_to": "General Ledger Customer and Supplier",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-01-19 13:39:04.814768",
+ "modified": "2024-03-07 08:56:01.218694",
  "modified_by": "Administrator",
  "module": "Etqanone",
  "name": "Etqan One",
