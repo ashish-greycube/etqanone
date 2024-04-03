@@ -57,10 +57,10 @@
         <table class="table table-bordered table-condensed"  style="font-size: 10px">
 			<thead>
             <tr>
-				<th style="width: 2%">{{ _("#") }}</th>
-				<th style="width: 10%">{{ _("Date") }}</th>
+				<th style="width: 1%">{{ _("#") }}</th>
+				<th style="width: 12%">{{ _("Date") }}</th>
 				<th style="width: 13%">{{ _("Voucher Type") }}</th>
-				<th style="width: 18%">{{ _("Reference") }}</th>
+				<th style="width: 17%">{{ _("Reference") }}</th>
 				<th style="width: 30%;">{{ _("Remarks") }}</th>
 				<th style="width: 9%;">{{ _("Debit") }}</th>
 				<th style="width: 9;">{{ _("Credit") }}</th>
@@ -72,15 +72,15 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ frappe.format(item.posting_date, {'fieldtype': 'Date'}) }} </td>
-				{% if item.account=="'Opening'" %}
+				{% if item.account==_("'Opening'") %}
 				<td>{{ _("Opening") }}</td>
 				<td></td>
 				<td></td>
-				{% elif item.account=="'Total'" %}
+				{% elif item.account==_("'Total'") or  item.account==_("'الإجمالي'")%}
 				<td>{{ _("Total") }}</td>
 				<td></td>
 				<td></td>				
-				{% elif item.account=="'Closing (Opening + Total)'" %}
+				{% elif item.account==_("'Closing (Opening + Total)'") or item.account==_("'الإغلاق (الافتتاحي + الإجمالي)'") %}
 				<td>{{ _("Closing (O+T)") }}</td>
 				<td></td>
 				<td></td>				
