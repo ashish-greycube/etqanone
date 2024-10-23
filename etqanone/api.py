@@ -11,6 +11,7 @@ from frappe.utils.pdf import get_pdf
 import json
 from six import string_types
 from frappe.www.printview import get_print_style
+from frappe.utils.jinja import is_rtl
 
 # @frappe.whitelist()
 # def import_arabic_translation():
@@ -163,7 +164,7 @@ def get_general_ledger_customer_statement_print(filters,data):
 	html = frappe.get_template("etqanone/etqanone/report/general_ledger_for_customer_print/general_ledger_customer_print_jinja.html").render(args)
 	html = frappe.render_template(
 				base_template_path,
-				{"body": html, "css": get_print_style(), "title":"Customer Statement"},
+				{"body": html, "css": get_print_style(),"lang": frappe.local.lang,"layout_direction": "rtl" if is_rtl() else "ltr","title":"Customer Statement"}
 			)	
 	docname=filters.get('party_name')+'-'+today()
 	frappe.local.response.filename = "{name}.pdf".format(name=docname.replace(" ", "-").replace("/", "-")     )
