@@ -12,6 +12,7 @@ def after_migrations():
 		make_records(import_folder_path,fname)
 	after_migrate_create_si_records()	
 	after_migrate_create_customer_supplier_link_fields()
+	after_migrate_create_payment_request_ref_field_in_jv_and_pe()
 	
 
 def make_records(path, fname):
@@ -87,3 +88,39 @@ def after_migrate_create_si_records():
 		),
 	)
 	frappe.db.commit()		
+
+
+def after_migrate_create_payment_request_ref_field_in_jv_and_pe():
+	from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
+	custom_fields = {
+		"Payment Entry": [	
+			dict(
+                fieldname="custom_payment_request_reference",
+                label="Payment Request Reference",
+                fieldtype="Link",
+                options="Payment Request Eqo",
+                insert_after="reference_no",
+                read_only=1,
+                is_custom_field=1,
+                is_system_generated=0,
+                translatable=0
+            )		
+		],
+		"Journal Entry": [	
+			dict(
+                fieldname="custom_payment_request_reference",
+                label="Payment Request Reference",
+                fieldtype="Link",
+                options="Payment Request Eqo",
+                insert_after="reference",
+                read_only=1,
+                is_custom_field=1,
+                is_system_generated=0,
+                translatable=0
+            )		
+		]       
+	}
+	print("Creating Payment Request Reference in Journal Entry and Payment Entry...")
+	for dt, fields in custom_fields.items():
+		print("*******\n %s: " % dt, [d.get("fieldname") for d in fields])
+	create_custom_fields(custom_fields)	

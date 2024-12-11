@@ -8,6 +8,7 @@ from erpnext import get_default_currency
 from frappe.model.document import Document
 from frappe.utils import today
 from erpnext.accounts.doctype.payment_entry.payment_entry import (get_bank_cash_account, get_party_details)
+from frappe.model.mapper import get_mapped_doc
 # from erpnext.accounts.doctype.bank_account.bank_account import (get_party_bank_account)
 
 class PaymentRequestEqo(Document):
@@ -16,11 +17,11 @@ class PaymentRequestEqo(Document):
 		self.calculate_supplier_payment_total()
 		self.calculate_customer_payment_total()
 		self.set_details_for_employee_payment()
-		# self.create_payment_entry_for_party()
 
 	def on_submit(self):
-		self.create_jv_for_expense_payment()
-		self.create_payment_entry_for_party()
+		self.check_sanctioned_amount()
+		# self.create_jv_for_expense_payment()
+		# self.create_payment_entry_for_party()
 
 	def set_details_for_expense_payment(self):
 		if self.pay_to == "Expense":
@@ -44,7 +45,7 @@ class PaymentRequestEqo(Document):
 					if not expense.project:
 						expense.project = self.project
 					if expense.tax_applicable == "Yes":
-						expense.tax_amount = tax_amount
+						expense.tax_amount = expense.sanctioned_amount * (tax_amount / 100)
 
 					expense.total_amount = (expense.sanctioned_amount or 0) + (expense.tax_amount or 0)
 			
@@ -89,11 +90,19 @@ class PaymentRequestEqo(Document):
 			if len(self.employee_payment_request_details) > 0:	
 				for emp in self.employee_payment_request_details:
 					if emp.tax_applicable == "Yes":
-						emp.tax_amount = tax_amount
+						emp.tax_amount = emp.amount * (tax_amount / 100)
 					emp.total_amount = emp.amount + emp.tax_amount
 					total_payment_amount = total_payment_amount + emp.total_amount
 
 				self.total_payment_request_amount = total_payment_amount
+
+	def check_sanctioned_amount(self):
+		if self.pay_to == "Expense" and len(self.expense_payment_request_details) > 0:
+			for exp in self.expense_payment_request_details:
+				if exp.sanctioned_amount == None or exp.sanctioned_amount == 0:
+					frappe.throw(_("In Row {0}: Please Set Sanctioned Amount.").format(exp.idx))
+				else:
+					continue
 
 	def create_jv_for_expense_payment(self):
 		if self.pay_to == "Expense":
@@ -241,3 +250,131 @@ class PaymentRequestEqo(Document):
 		self.payment_entry = pe.name
 		pe.submit()
 		frappe.msgprint(_("Payment Entry {0} Created.").format(pe.name), alert=1)
+
+
+@frappe.whitelist()
+def get_expense_account(expense_type):
+
+	expense_type_doc = frappe.get_doc("Expense Claim Type", expense_type)
+	if len(expense_type_doc.accounts) > 0:
+		expense_acc = expense_type_doc.accounts[0].default_account
+		return expense_acc
+	else:
+		frappe.throw(_("Please Set Defaul Expense Acoount in Expense Claim Type."))
+
+
+@frappe.whitelist()
+def create_jv_for_expense_payment(source_name, target_doc=None):
+	print("Inside fucntion!!!")
+	def postprocess(source, target):
+		doc = frappe.get_doc("Payment Request Eqo", source_name)
+		target.voucher_type = "Journal Entry"
+		target.posting_date = doc.request_date
+
+		accounts = []
+		total_tax_amount = 0
+		for exp in doc.expense_payment_request_details:
+			if exp.action == "Approve":
+				accounts_row = {
+					"account":exp.expense_account,
+					"cost_center":exp.cost_center,
+					"project":exp.project,
+					"debit_in_account_currency":exp.sanctioned_amount,
+					}
+
+				accounts.append(accounts_row)
+
+				if exp.tax_applicable == "Yes":
+					total_tax_amount = total_tax_amount + exp.tax_amount
+		
+		if total_tax_amount > 0:
+			purchase_tax_chanrges_list = frappe.db.get_all("Purchase Taxes and Charges Template", filters={"is_default":1, "company":doc.company},
+											fields=["name"], limit=1)
+			
+			if len(purchase_tax_chanrges_list) > 0:
+				for tax in purchase_tax_chanrges_list:
+					tax_doc = frappe.get_doc("Purchase Taxes and Charges Template", tax.name)
+					if len(tax_doc.taxes) > 0:
+						tax_account = tax_doc.taxes[0].account_head
+						tax_account_row = {
+							"account":tax_account,
+							"cost_center":doc.cost_center,
+							"project":doc.project,
+							"debit_in_account_currency":total_tax_amount,
+							}
+						accounts.append(tax_account_row)
+
+		target.set("accounts",accounts)
+		target.run_method("set_missing_values")
+
+	doc = get_mapped_doc(
+		"Payment Request Eqo",
+		source_name,
+		{
+			"Payment Request Eqo": {
+				"doctype": "Journal Entry",
+				"field_map": {
+					"custom_payment_request_reference": "name",
+				}
+			},
+			# "Expense Payment Request Details Eqo": {
+			# 	"doctype": "Journal Entry Account",
+			# 	"field_map": {
+			# 		"custom_sample_request_reference": "name",
+			# 	}
+			# }
+		},
+		target_doc,
+		postprocess,
+	)
+	print(doc.name, "===docname")
+	return doc
+
+@frappe.whitelist()
+def create_payment_entry(source_name, target_doc=None):
+	print("Inside fucntion!!!")
+	def postprocess(source, target):
+		doc = frappe.get_doc("Payment Request Eqo", source_name)
+		target.naming_series = "ACC-PAY-.YYYY.-"
+		target.posting_date = doc.request_date
+
+		# target.payment_type = doc.payment_type
+		if doc.pay_to == "Supplier":
+			target.payment_type = "Pay"
+		elif doc.pay_to == "Customer":
+			target.payment_type = "Receive"
+		elif doc.pay_to == "Employee":
+			target.payment_type = "Pay"
+
+		target.party = doc.party_no
+		target.party_type = doc.party_type
+		target.party_name = doc.party_name
+		target.company = doc.company
+		# target.reference_no = doc.name
+		# target.reference_date = today()
+		target.paid_amount = doc.total_payment_request_amount
+		target.received_amount = doc.total_payment_request_amount
+
+		#### get party account details ###
+		party_details = get_party_details(doc.company, doc.party_type, doc.party_no, today(), cost_center=None)
+
+		target.paid_from = party_details.get("party_account") if target.payment_type == "Receive" else ''
+		target.paid_to = party_details.get("party_account") if target.payment_type == "Pay" else ''
+		# target.run_method("set_missing_values")
+
+	doc = get_mapped_doc(
+		"Payment Request Eqo",
+		source_name,
+		{
+			"Payment Request Eqo": {
+				"doctype": "Payment Entry",
+				"field_map": {
+					"custom_payment_request_reference": "name",
+				}
+			},
+		},
+		target_doc,
+		postprocess,
+	)
+	print(doc.name, "===docname")
+	return doc

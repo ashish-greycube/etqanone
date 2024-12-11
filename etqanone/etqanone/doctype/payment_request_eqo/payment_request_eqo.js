@@ -7,6 +7,23 @@ frappe.ui.form.on('Payment Request Eqo', {
 		if(frm.doc.party_no){
 			set_party_name(frm)
 		}
+		if (frm.doc.docstatus == 1 && frm.doc.pay_to == "Expense" && frm.doc.total_expense_amount > 0) {
+            frm.add_custom_button(__('Create JV'), () => {
+                frappe.model.open_mapped_doc({
+					method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.create_jv_for_expense_payment",
+					frm: frm,
+				});
+            });
+        }
+
+		if (frm.doc.docstatus == 1 && frm.doc.pay_to != "Expense" && frm.doc.total_payment_request_amount > 0) {
+            frm.add_custom_button(__('Create Payment Entry'), () => {
+				frappe.model.open_mapped_doc({
+					method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.create_payment_entry",
+					frm: frm,
+				});
+            });
+        }
 	},
 	setup:function(frm){
 		frm.set_query('cost_center', () => {
@@ -65,7 +82,8 @@ frappe.ui.form.on('Payment Request Eqo', {
 		frm.set_query('pinv_reference', 'supplier_payment_request_details', () => {
 			return {
 				filters: {
-					status: ["in", ["Overdue", "Unpaid"]]
+					status: ["in", ["Overdue", "Unpaid"]],
+					supplier: frm.doc.party_no
 				}
 			}
 		})
@@ -73,7 +91,8 @@ frappe.ui.form.on('Payment Request Eqo', {
 		frm.set_query('sinv_reference', 'customer_payment_request_details', () => {
 			return {
 				filters: {
-					status: ["in", ["Overdue", "Unpaid"]]
+					status: ["in", ["Overdue", "Unpaid"]],
+					customer: frm.doc.party_no
 				}
 			}
 		})
@@ -135,3 +154,20 @@ let set_party_name = function(frm){
 		frm.set_value("party_name", "")
 	}
 }
+
+
+frappe.ui.form.on('Expense Payment Request Details Eqo', {
+	expense_claim_type: function(frm, cdt, cdn){
+		// frm.call('get_expense_account')
+		let row = locals[cdt][cdn]
+		frappe.call({
+			method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.get_expense_account",
+			args: {
+				expense_type: row.expense_claim_type,
+			},
+		}).then((r) => {
+			frappe.model.set_value(cdt, cdn, 'expense_account', r.message)
+			console.log(r, "====expense_type")
+		});
+	}
+})

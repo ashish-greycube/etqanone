@@ -16,12 +16,9 @@
   "party_name",
   "column_break_medh6",
   "amended_from",
-  "mode_of_payment",
   "cost_center",
   "project",
   "employee_paid_to_account",
-  "journal_entry",
-  "payment_entry",
   "section_break_28w7q",
   "expense_payment_request_details",
   "total_expense_amount",
@@ -83,13 +80,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "mode_of_payment",
-   "fieldtype": "Link",
-   "label": "Mode of Payment",
-   "options": "Mode of Payment",
-   "reqd": 1
-  },
-  {
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
@@ -100,25 +90,7 @@
    "fieldname": "project",
    "fieldtype": "Link",
    "label": "Project",
-   "mandatory_depends_on": "eval:doc.pay_to=='Expense'",
    "options": "Project"
-  },
-  {
-   "allow_on_submit": 1,
-   "description": "<b>Tax Debit Expense Account:</b> Default  Account of Purchase Taxes and Charges Template\n<br>\n<b>Total Credit Expense Account:</b> Default Account of Mode Of payment",
-   "fieldname": "journal_entry",
-   "fieldtype": "Link",
-   "label": "Journal Entry",
-   "options": "Journal Entry",
-   "read_only": 1
-  },
-  {
-   "allow_on_submit": 1,
-   "fieldname": "payment_entry",
-   "fieldtype": "Link",
-   "label": "Payment Entry",
-   "options": "Payment Entry",
-   "read_only": 1
   },
   {
    "fieldname": "section_break_28w7q",
@@ -204,7 +176,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-06 13:38:06.821135",
+ "modified": "2024-12-11 08:21:54.263832",
  "modified_by": "Administrator",
  "module": "Etqanone",
  "name": "Payment Request Eqo",
