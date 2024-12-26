@@ -1,0 +1,143 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"S5eZJ-roTk\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">EtqanOne 15</span>\",\"col\":12}},{\"id\":\"XNVK6ch5Zq\",\"type\":\"card\",\"data\":{\"card_name\":\"EtqanOne\",\"col\":4}}]",
+ "creation": "2024-12-26 10:12:19.300129",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "color-review-points",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "EtqanOne 15",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EtqanOne",
+   "link_count": 10,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Request Eqo",
+   "link_count": 0,
+   "link_to": "Payment Request Eqo",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Company Document Eqo",
+   "link_count": 0,
+   "link_to": "Company Document Eqo",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Document Type Eqo",
+   "link_count": 0,
+   "link_to": "Document Type Eqo",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Expense Entry",
+   "link_count": 0,
+   "link_to": "Expense Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Admin Document Type",
+   "link_count": 0,
+   "link_to": "Admin Document Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Administrative Decision",
+   "link_count": 0,
+   "link_to": "Administrative Decision",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Trial Balance ETQ15",
+   "link_count": 0,
+   "link_to": "Trial Balance ETQ15",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "GL Entry",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "General Ledger For Customer Print",
+   "link_count": 0,
+   "link_to": "General Ledger For Customer Print",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "GL Entry",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "General Ledger Middle East",
+   "link_count": 0,
+   "link_to": "General Ledger Middle East",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "GL Entry",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "General Ledger Customer and Supplier",
+   "link_count": 0,
+   "link_to": "General Ledger Customer and Supplier",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "GL Entry",
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-12-26 10:16:18.594875",
+ "modified_by": "Administrator",
+ "module": "Etqanone",
+ "name": "EtqanOne 15",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 36.0,
+ "shortcuts": [],
+ "title": "EtqanOne 15"
+}

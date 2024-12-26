@@ -209,7 +209,12 @@ frappe.query_reports["General Ledger For Customer Print"] = {
 			"label": __("Show Net Values in Party Account"),
 			"fieldtype": "Check",
 			"hidden":1
-		}
+		},
+		{
+			fieldname: "ignore_cr_dr_notes",
+			label: __("Ignore System Generated Credit / Debit Notes"),
+			fieldtype: "Check",
+		}		
 	],
 	// custom
 	onload: function (report) {
