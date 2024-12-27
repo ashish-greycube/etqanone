@@ -23,7 +23,7 @@ def execute(filters=None):
 					if is_return==1:
 						row['voucher_type']=_('Sales Return')
 				elif row.get('voucher_type')=='Payment Entry':
-					remark=frappe.db.get_value(row.get('voucher_type'), row.get('voucher_no'), 'remark')
+					remark=frappe.db.get_value(row.get('voucher_type'), row.get('voucher_no'), 'remarks')
 					manual_receipt_no=None
 					meta = frappe.get_meta('Payment Entry')
 					if meta.has_field('manual_receipt_no'):

@@ -108,23 +108,47 @@ frappe.ui.form.on('Payment Request Eqo', {
 	pay_to: function(frm) {
 		selete_party_type(frm)
 	},
-	party_no: function(frm) {
+	party_no: function (frm) {
 		set_party_name(frm)
+		if (frm.doc.pay_to == 'Employee') {
+			frappe.db.get_value('Company', frm.doc.company, 'default_employee_petty_cash_payable_account_cf')
+				.then(r => {
+					if (r.message.default_employee_petty_cash_payable_account_cf) {
+						frm.set_value('employee_paid_to_account', r.message.default_employee_petty_cash_payable_account_cf)
+					}
+					else {
+						console.log("no found")
+					}
+					console.log(r.message.default_employee_petty_cash_payable_account_cf)
+				})
+		}
 	},
 });
 
 let selete_party_type = function(frm){
 	if(frm.doc.pay_to === "Employee"){
 		frm.set_value("party_type", "Employee")
+		frm.doc.expense_payment_request_details = []
+		frm.doc.supplier_payment_request_details = []
+		frm.doc.customer_payment_request_details = []
 	}
 	else if(frm.doc.pay_to === "Supplier"){
 		frm.set_value("party_type", "Supplier")
+		frm.doc.expense_payment_request_details = []
+		frm.doc.customer_payment_request_details = []
+		frm.doc.employee_payment_request_details = []
 	}
 	else if(frm.doc.pay_to === "Customer"){
 		frm.set_value("party_type", "Customer")
+		frm.doc.expense_payment_request_details = []
+		frm.doc.supplier_payment_request_details = []
+		frm.doc.employee_payment_request_details = []
 	}
 	else{
 		frm.set_value("party_type", "")
+		frm.doc.customer_payment_request_details = []
+		frm.doc.supplier_payment_request_details = []
+		frm.doc.employee_payment_request_details = []
 	}
 }
 

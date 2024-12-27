@@ -7,6 +7,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "expense_claim_type",
   "expense_account",
   "amount",
   "cost_center",
@@ -77,12 +78,19 @@
    "in_list_view": 1,
    "label": "Amount",
    "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "expense_claim_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Expense Claim Type",
+   "options": "Expense Claim Type"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-05 10:57:54.544441",
+ "modified": "2024-12-26 13:35:37.485123",
  "modified_by": "Administrator",
  "module": "Etqanone",
  "name": "Employee Payment Request Details Eqo",

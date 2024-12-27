@@ -37,6 +37,8 @@ class PaymentRequestEqo(Document):
 					doc = frappe.get_doc("Purchase Taxes and Charges Template", tax.name)
 					if len(doc.taxes) > 0:
 						tax_amount = doc.taxes[0].rate
+			else:
+				frappe.msgprint(_("No Default Purchase Tax Amount Found."), alert=1)
 			
 			if len(self.expense_payment_request_details) > 0:
 				for expense in self.expense_payment_request_details:
@@ -45,7 +47,7 @@ class PaymentRequestEqo(Document):
 					if not expense.project:
 						expense.project = self.project
 					if expense.tax_applicable == "Yes":
-						expense.tax_amount = expense.sanctioned_amount * (tax_amount / 100)
+						expense.tax_amount = (expense.sanctioned_amount or 0) * (tax_amount / 100)
 
 					expense.total_amount = (expense.sanctioned_amount or 0) + (expense.tax_amount or 0)
 			
@@ -360,6 +362,10 @@ def create_payment_entry(source_name, target_doc=None):
 
 		target.paid_from = party_details.get("party_account") if target.payment_type == "Receive" else ''
 		target.paid_to = party_details.get("party_account") if target.payment_type == "Pay" else ''
+
+		target.paid_from_account_currency = party_details.get("party_account_currency") if target.payment_type == "Receive" else get_default_currency()
+		target.paid_to_account_currency = party_details.get("party_account_currency") if target.payment_type == "Pay" else get_default_currency()
+
 		# target.run_method("set_missing_values")
 
 	doc = get_mapped_doc(
