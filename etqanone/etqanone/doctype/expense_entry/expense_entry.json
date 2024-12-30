@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2019-05-27 14:24:44.511123",
@@ -17,6 +18,7 @@
   "posting_date",
   "company",
   "cost_center",
+  "so_reference",
   "expense_detail_section",
   "check_all",
   "add_vat",
@@ -192,13 +194,21 @@
    "fieldtype": "Button",
    "label": "Add VAT",
    "options": "add_vat"
+  },
+  {
+   "fieldname": "so_reference",
+   "fieldtype": "Link",
+   "label": "SO Reference",
+   "options": "Sales Order"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-11-13 17:02:34.220967",
+ "links": [],
+ "modified": "2024-12-30 13:13:38.969845",
  "modified_by": "Administrator",
  "module": "Etqanone",
  "name": "Expense Entry",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -241,6 +251,7 @@
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "title",
  "track_changes": 1
 }
