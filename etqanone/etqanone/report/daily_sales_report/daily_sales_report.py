@@ -46,19 +46,7 @@ def get_columns(mop):
 				"label":_("Net Sales"),
 				"fieldtype": "Currency",
 				"width":'200'
-			},
-			{
-				"fieldname": "total_sales_invoice",
-				"label":_("Total Sales Invoice"),
-				"fieldtype": "Int",
-				"width":'200'
-			},
-			{
-				"fieldname": "total_sales_return",
-				"label":_("Total Sales Return"),
-				"fieldtype": "Int",
-				"width":'200'
-			},
+			}
 		]
 	
 	for col in mop:
@@ -69,21 +57,39 @@ def get_columns(mop):
 				"fieldtype": "Currency",
 				"width":'160'
 			})
+	
+	columns.append(
+			{
+				"fieldname": "total_sales_invoice",
+				"label":_("Total Sales Invoice"),
+				"fieldtype": "Int",
+				"width":'200'
+			})
+	
+	columns.append(
+			{
+				"fieldname": "total_sales_return",
+				"label":_("Total Sales Return"),
+				"fieldtype": "Int",
+				"width":'200'
+			})
 
 	# print(columns , '====columns')
 	return columns
 
 def get_conditions(filters):
-	conditions = {
-		"company": filters.company,
-	}
-	if filters.get("from_date") > filters.get("to_date"):
-		frappe.throw(_("From Date Cann't Be Greater Than To Date."))
-	else:
-		conditions.update({"from_date": filters.get("from_date")})
-		conditions.update({"to_date": filters.get("to_date")})
-	if filters.get("sales_partner"):
-		conditions.update({"sales_partner": filters.get("sales_partner")})
+	conditions = ""
+
+	if filters.get("from_date") and filters.get("to_date"):
+		if filters.get("to_date") >= filters.get("from_date"):
+			conditions += "DATE(si.creation) between {0} and {1}".format(
+                frappe.db.escape(filters.get("from_date")),
+                frappe.db.escape(filters.get("to_date")))       
+		else:
+			frappe.throw(_("To Date should be greater then From Date"))
+	
+	if filters.sales_partner:
+		conditions += " and si.sales_partner = '{0}'".format(filters.sales_partner)
 
 	return conditions
 
@@ -99,10 +105,10 @@ def get_data(filters, mop):
 			FROM
 				`tabSales Invoice` si
 			where
-				si.is_return = 0
+				{0} and si.is_return = 0 
 			group by
 				si.sales_partner
-		""", as_dict=1)
+		""".format(conditions), filters, as_dict=1)
 	
 	print(si, "=======si")
 	
@@ -114,14 +120,15 @@ def get_data(filters, mop):
 			FROM
 				`tabSales Invoice` si
 			where
-				si.is_return = 1
+				{0} and si.is_return = 1
 			group by
 				si.sales_partner
-		""", as_dict=1)
+		""".format(conditions), filters, as_dict=1)
 	
 	print(return_si, "===return_si")
 
 	for row in si:
+		return_si_found = False
 		for credit in return_si:
 			if row.sales_partner == credit.sales_partner:
 				data.append({
@@ -132,7 +139,18 @@ def get_data(filters, mop):
 					"total_sales_invoice": row.total_no_of_sales_invoice,
 					"total_sales_return": credit.total_no_of_credit_notes
 				})
+				return_si_found = True
 				break
+
+		if return_si_found == False:
+			data.append({
+				"sales_partner": row.sales_partner,
+				"total_sales": row.total_sales,
+				"total_return": 0,
+				"net_sales": row.total_sales,
+				"total_sales_invoice": row.total_no_of_sales_invoice,
+				"total_sales_return": 0
+			})
 	
 	mop_data = frappe.db.sql("""SELECT
 					IFNULL(si.sales_partner,'') as sales_partner,
@@ -142,25 +160,20 @@ def get_data(filters, mop):
 					`tabSales Invoice` si
 				left outer join `tabSales Invoice Payment` sip on
 					si.name = sip.parent
+				where {0}
 				group by
 					si.sales_partner,
-					sip.mode_of_payment""", as_dict=1)
+					sip.mode_of_payment""".format(conditions), filters, as_dict=1)
 
-	final_data = []
+	print(data, '========data')
+
 	for main_row in data:
-		found=False
 		for mop_row in mop_data:
-			print("===========")
 			if main_row.get('sales_partner') == mop_row.get('sales_partner'):
 				for mop_type in mop:
 					if mop_row.get('mode_of_payment') == mop_type:
-						print(main_row,'mainrow')
+						# print(main_row,'mainrow')
 						main_row.update({_(mop_type): mop_row['mod_amout']})
-						final_data.append(main_row)
-						found=True
-						print(final_data,'-----aftermainrow')
-		
-		if found==False:
-			final_data.append(main_row)
-	return final_data
+
+	return data
 
