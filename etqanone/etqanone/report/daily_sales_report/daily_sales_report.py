@@ -62,7 +62,13 @@ def get_columns(mop):
 		]
 	
 	for col in mop:
-		columns.append(_(col) + ":Float:160")
+		columns.append(
+				{
+				"fieldname": _(col),
+				"label":_(col),
+				"fieldtype": "Currency",
+				"width":'160'
+			})
 
 	# print(columns , '====columns')
 	return columns
@@ -87,7 +93,7 @@ def get_data(filters, mop):
 
 	si = frappe.db.sql("""
 			SELECT
-				si.sales_partner as sales_partner,
+				IFNULL(si.sales_partner,'') as sales_partner,
 				sum(si.grand_total) as total_sales,
 				count(si.name) as total_no_of_sales_invoice
 			FROM
@@ -100,9 +106,9 @@ def get_data(filters, mop):
 	
 	print(si, "=======si")
 	
-	credit_si = frappe.db.sql("""
+	return_si = frappe.db.sql("""
 			SELECT
-				si.sales_partner as sales_partner,
+				IFNULL(si.sales_partner,'') as sales_partner,
 				sum(si.grand_total) as total_return,
 				count(si.name) as total_no_of_credit_notes
 			FROM
@@ -113,10 +119,10 @@ def get_data(filters, mop):
 				si.sales_partner
 		""", as_dict=1)
 	
-	print(credit_si, "===credit_si")
+	print(return_si, "===return_si")
 
 	for row in si:
-		for credit in credit_si:
+		for credit in return_si:
 			if row.sales_partner == credit.sales_partner:
 				data.append({
 					"sales_partner": row.sales_partner,
@@ -127,6 +133,34 @@ def get_data(filters, mop):
 					"total_sales_return": credit.total_no_of_credit_notes
 				})
 				break
+	
+	mop_data = frappe.db.sql("""SELECT
+					IFNULL(si.sales_partner,'') as sales_partner,
+					sip.mode_of_payment ,
+					sum(sip.amount) as mod_amout
+				FROM
+					`tabSales Invoice` si
+				left outer join `tabSales Invoice Payment` sip on
+					si.name = sip.parent
+				group by
+					si.sales_partner,
+					sip.mode_of_payment""", as_dict=1)
 
-	return data
+	final_data = []
+	for main_row in data:
+		found=False
+		for mop_row in mop_data:
+			print("===========")
+			if main_row.get('sales_partner') == mop_row.get('sales_partner'):
+				for mop_type in mop:
+					if mop_row.get('mode_of_payment') == mop_type:
+						print(main_row,'mainrow')
+						main_row.update({_(mop_type): mop_row['mod_amout']})
+						final_data.append(main_row)
+						found=True
+						print(final_data,'-----aftermainrow')
+		
+		if found==False:
+			final_data.append(main_row)
+	return final_data
 
