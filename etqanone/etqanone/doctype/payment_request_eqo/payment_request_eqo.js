@@ -8,21 +8,39 @@ frappe.ui.form.on('Payment Request Eqo', {
 			set_party_name(frm)
 		}
 		if (frm.doc.docstatus == 1 && frm.doc.pay_to == "Expense" && frm.doc.total_expense_amount > 0) {
-            frm.add_custom_button(__('Create JV'), () => {
-                frappe.model.open_mapped_doc({
-					method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.create_jv_for_expense_payment",
-					frm: frm,
-				});
-            });
+			frappe.call({
+				method:"etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.get_journal_entry",
+				args: {
+					docname: frm.doc.name
+				}
+			}).then((r) => {
+				if (r.message === false) {
+					frm.add_custom_button(__('Create JV'), () => {
+						frappe.model.open_mapped_doc({
+							method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.create_jv_for_expense_payment",
+							frm: frm,
+						});
+					});
+				}
+			})
         }
 
 		if (frm.doc.docstatus == 1 && frm.doc.pay_to != "Expense" && frm.doc.total_payment_request_amount > 0) {
-            frm.add_custom_button(__('Create Payment Entry'), () => {
-				frappe.model.open_mapped_doc({
-					method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.create_payment_entry",
-					frm: frm,
-				});
-            });
+			frappe.call({
+				method:"etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.get_payment_entry",
+				args: {
+					docname: frm.doc.name
+				}
+			}).then((r) => {
+				if (r.message === false) {
+					frm.add_custom_button(__('Create Payment Entry'), () => {
+						frappe.model.open_mapped_doc({
+							method: "etqanone.etqanone.doctype.payment_request_eqo.payment_request_eqo.create_payment_entry",
+							frm: frm,
+						});
+					});
+				}
+			});
         }
 	},
 	setup:function(frm){

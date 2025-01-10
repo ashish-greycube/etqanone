@@ -175,8 +175,17 @@
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2024-12-11 08:21:54.263832",
+ "links": [
+  {
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "custom_payment_request_reference"
+  },
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "custom_payment_request_reference"
+  }
+ ],
+ "modified": "2025-01-10 07:26:23.433598",
  "modified_by": "Administrator",
  "module": "Etqanone",
  "name": "Payment Request Eqo",

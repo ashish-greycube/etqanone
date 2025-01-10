@@ -253,6 +253,31 @@ class PaymentRequestEqo(Document):
 		pe.submit()
 		frappe.msgprint(_("Payment Entry {0} Created.").format(pe.name), alert=1)
 
+@frappe.whitelist()
+def get_payment_entry(docname):
+	payment_entry_found = False
+
+	pe_list = frappe.db.get_all('Payment Entry', filters={'custom_payment_request_reference':docname}, fields=['name'])
+
+	# print(pe_list, "------pe_list")
+	if len(pe_list) > 0:
+		payment_entry_found = True
+	
+	return payment_entry_found
+
+@frappe.whitelist()
+def get_journal_entry(docname):
+	journal_entry_found = False
+
+	jv_list = frappe.db.get_all('Journal Entry', filters={'custom_payment_request_reference':docname}, fields=['name'])
+
+	# print(jv_list, "------jv_list")
+	if len(jv_list) > 0:
+		journal_entry_found = True
+	
+	return journal_entry_found
+
+
 
 @frappe.whitelist()
 def get_expense_account(expense_type):
