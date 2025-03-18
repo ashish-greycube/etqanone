@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-18 11:04:53.550856",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company_name",
+  "column_break_uzahw",
+  "company_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_uzahw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name",
+   "mandatory_depends_on": "eval:doc.company_url"
+  },
+  {
+   "fieldname": "company_url",
+   "fieldtype": "Data",
+   "label": "Company URL",
+   "mandatory_depends_on": "eval:doc.company_name",
+   "options": "URL"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-03-18 12:13:04.170172",
+ "modified_by": "Administrator",
+ "module": "Etqanone",
+ "name": "Etqanone Settings Eqo",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
