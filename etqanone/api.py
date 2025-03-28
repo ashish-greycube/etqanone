@@ -166,7 +166,35 @@ def get_general_ledger_customer_statement_print(filters,data):
 				base_template_path,
 				{"body": html, "css": get_print_style(),"lang": frappe.local.lang,"layout_direction": "rtl" if is_rtl() else "ltr","title":"Customer Statement"}
 			)	
+	print(filters.get('party_name'),type(filters.get('party_name')))
 	docname=filters.get('party_name')+'-'+today()
+	frappe.local.response.filename = "{name}.pdf".format(name=docname.replace(" ", "-").replace("/", "-")     )
+	frappe.local.response.filecontent = get_pdf(html)
+	frappe.local.response.type = "pdf" 
+
+@frappe.whitelist()
+def get_general_ledger_account_statement_print(filters,data):
+	# get letter head
+	letter_head=frappe.db.get_value("Letter Head", {"is_default": 1}, ["content", "footer"], as_dict=True) or {}
+	# convert string to dict
+	if isinstance(filters, string_types):
+		filters = json.loads(filters)	
+	if isinstance(data, string_types):
+		data = json.loads(data)			
+	args={
+		'letter_head':letter_head,
+		'data':data,
+		'filters':filters
+	}
+	# to have css impact
+	base_template_path = "frappe/www/printview.html"
+	html = frappe.get_template("etqanone/etqanone/report/general_ledger_for_account_print/general_ledger_account_print_jinja.html").render(args)
+	html = frappe.render_template(
+				base_template_path,
+				{"body": html, "css": get_print_style(),"lang": frappe.local.lang,"layout_direction": "rtl" if is_rtl() else "ltr","title":"Account Statement"}
+			)	
+	
+	docname=filters.get('account')+'-'+today()
 	frappe.local.response.filename = "{name}.pdf".format(name=docname.replace(" ", "-").replace("/", "-")     )
 	frappe.local.response.filecontent = get_pdf(html)
 	frappe.local.response.type = "pdf" 

@@ -1,0 +1,89 @@
+{% if data|length > 0 %}
+<div class="page-break">
+	<div id="header-html" class="visible-pdf">
+		{% if letter_head %}
+		<div class="letter-head text-center">{{ letter_head.content }}</div>
+		{% endif %}
+	</div>
+	<div id="footer-html" class="visible-pdf">
+		{% if letter_head.footer %}
+		<div class="letter-head-footer">
+			<hr style="border-width:0;color:black;background-color:black;padding-bottom:2px;">
+			{{ letter_head.footer }}
+		</div>
+		{% endif %}
+		<p class="text-center small page-number visible-pdf">
+			{{ _("Page {0} of {1}").format('<span class="page"></span>', '<span class="topage"></span>') }}
+		</p>			
+	</div>
+	<h4 class="text-center">{{ _("ACCOUNT STATEMENT") }}</h4>
+
+	
+
+    <table class="table table-bordered table-condensed" style="font-size: 12px">
+        <tbody>
+
+        <tr>
+            <td><b>{{ _("From Date") }}</b></td>
+            <td>{{ filters.from_date }}</td>
+
+            <td><b>{{ _("Account Name") }}</b></td>
+            <td>{{ filters.account or ''}}</td>
+        </tr>        
+        <tr>
+            <td><b>{{ _("To Date") }}</b></td>
+            <td>{{ filters.to_date }}</td>
+            <td><b>{{ _("Account No.") }}</b></td>
+            {% set account_no = frappe.db.get_value("Account",filters.account,"account_number") %}
+            <td>{{ account_no or ''}}</td>
+        </tr>         
+        </tbody>
+    </table>
+
+
+    <div class="margin-top margin-bottom">
+        <table class="table table-bordered table-condensed"  style="font-size: 10px">
+			<thead>
+            <tr>
+				<th style="width: 1%">{{ _("#") }}</th>
+				<th style="width: 12%">{{ _("Date") }}</th>
+				<th style="width: 13%">{{ _("Voucher Type") }}</th>
+				<th style="width: 17%">{{ _("Reference") }}</th>
+				<th style="width: 30%;">{{ _("Remarks") }}</th>
+				<th style="width: 9%;">{{ _("Debit") }}</th>
+				<th style="width: 9;">{{ _("Credit") }}</th>
+				<th style="width: 9%;">{{ _("Balance  (Dr-Cr)") }}</th>
+            </tr>
+			</thead>
+			<tbody></tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ frappe.format(item.posting_date, {'fieldtype': 'Date'}) }} </td>
+				{% if item.account==_("'Opening'") %}
+				<td>{{ _("Opening") }}</td>
+				<td></td>
+				<td></td>
+				{% elif item.account==_("'Total'") or  item.account==_("'الإجمالي'")%}
+				<td>{{ _("Total") }}</td>
+				<td></td>
+				<td></td>				
+				{% elif item.account==_("'Closing (Opening + Total)'") or item.account==_("'الإغلاق (الافتتاحي + الإجمالي)'") %}
+				<td>{{ _("Closing (O+T)") }}</td>
+				<td></td>
+				<td></td>				
+				{% else %}
+				<td>{{ _(item.voucher_type) }}</td>
+                <td>{{ item.voucher_no }}</td>
+                <td>{{ item.remarks }}</td>
+				{% endif %}
+                <td>{{ frappe.utils.fmt_money(item.debit, 2) }} </td>
+                <td>{{ frappe.utils.fmt_money(item.credit, 2) }}</td>
+                <td>{{ frappe.utils.fmt_money(item.balance,2)}}</td>
+            </tr>
+            {% endfor %}
+		</tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
