@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2024-03-07 08:53:26.348128",
  "disable_prepared_report": 0,
@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "\u0634\u0639\u0627\u0631 \u0627\u0644\u0634\u0631\u0643\u0629",
- "modified": "2024-03-07 08:53:26.348128",
+ "modified": "2025-10-03 07:44:19.079164",
  "modified_by": "Administrator",
  "module": "Etqanone",
  "name": "General Ledger Customer and Supplier",
