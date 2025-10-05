@@ -11,7 +11,17 @@ from frappe.utils.pdf import get_pdf
 import json
 from six import string_types
 from frappe.www.printview import get_print_style
-from frappe.utils.jinja_globals import is_rtl
+
+# from frappe.utils.jinja_globals import is_rtl
+# from frappe.utils.jinja import is_rtl
+
+
+def is_rtl(rtl=None):
+	from frappe import local
+
+	if rtl is None:
+		return local.lang in ["ar", "he", "fa", "ps"]
+	return rtl
 
 # @frappe.whitelist()
 # def import_arabic_translation():
