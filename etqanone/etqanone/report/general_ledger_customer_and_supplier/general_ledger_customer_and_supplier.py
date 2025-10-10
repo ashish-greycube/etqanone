@@ -47,13 +47,13 @@ def execute(filters=None):
 	account_closing_dict=frappe._dict({'account': "'Closing (Opening + Total)'", 'debit': 0.0, 'credit': 0.0, 'debit_in_account_currency': 0.0, 'credit_in_account_currency': 0.0, 'balance': 0.0, 'account_currency': 'SAR', 'bill_no': ''})
 	gl_list=[]
 	for row in res:
-		if row['account']=="'Opening'":
+		if row['account']==_("'Opening'"):
 			for account_field in account_fields:
 				account_opening_dict[account_field]=account_opening_dict[account_field]+row[account_field]
-		if row['account']=="'Total'":
+		if row['account']==_("'Total'"):
 			for account_field in account_fields:
 				account_total_dict[account_field]=account_total_dict[account_field]+row[account_field]
-		if row['account']=="'Closing (Opening + Total)'":
+		if row['account']==_("'Closing (Opening + Total)'"):
 			for account_field in account_fields:
 				account_closing_dict[account_field]=account_closing_dict[account_field]+row[account_field]
 		if row.get('gl_entry'):
